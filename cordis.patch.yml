@@ -1,0 +1,5 @@
+# Session reminder bundle: one Host row; the Client module renders the
+# sidebar bell and the reminder page.
+- insert:
+    - id: session-reminder
+      name: 'dsh-session-reminder'

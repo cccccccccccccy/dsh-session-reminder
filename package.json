@@ -1,0 +1,63 @@
+{
+  "name": "dsh-session-reminder",
+  "version": "1.0.0",
+  "description": "Left-sidebar reminder for DeepSeek Harness: a blue count of running sessions and a green count of finished-but-unread sessions, with one page to open them.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Echo (https://github.com/cccccccccccccy)",
+  "homepage": "https://github.com/cccccccccccccy/dsh-session-reminder#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cccccccccccccy/dsh-session-reminder.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cccccccccccccy/dsh-session-reminder/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "session",
+    "reminder",
+    "notification",
+    "sidebar"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.1 <0.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./assets/icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "assets/icon.svg",
+    "assets/icon-180.png",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ]
+    }
+  }
+}
