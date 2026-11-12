@@ -4,7 +4,7 @@
   "description": "Left-sidebar reminder for DeepSeek Harness: a blue count of running sessions and a green count of finished-but-unread sessions, with one page to open them.",
   "type": "module",
   "license": "MIT",
-  "author": "Echo (https://github.com/cccccccccccccy)",
+  "author": "dsh-session-reminder contributors",
   "homepage": "https://github.com/cccccccccccccy/dsh-session-reminder#readme",
   "repository": {
     "type": "git",
