@@ -118,7 +118,10 @@ window.__ModuleLoader__.load({
 .smr-glyph[data-solo=finished] .smr-badge[data-kind=finished]{top:-6px;bottom:auto}
 `;
 
-    const EMPTY_HOOK = () => 0;
+    const EMPTY_STATUSES = new Map();
+    const EMPTY_SESSIONS = { phase: 'ready', ids: [], byId: {} };
+    const useEmptyStatus = (selector) => selector(EMPTY_STATUSES);
+    const useEmptySessions = (selector) => selector(EMPTY_SESSIONS);
 
     /** Sessions still running (a pending interaction keeps its Session running). */
     function countActive(statuses) {
@@ -307,8 +310,10 @@ window.__ModuleLoader__.load({
     /** The sidebar panel page: running Sessions first, then unread completions. */
     function ReminderPage(props) {
       const { t, openSession } = props;
-      const list = props.useSessions((state) => state);
-      const statuses = props.useSessionStatus((snapshot) => snapshot);
+      const useSessions = typeof props.useSessions === 'function' ? props.useSessions : useEmptySessions;
+      const useSessionStatus = typeof props.useSessionStatus === 'function' ? props.useSessionStatus : useEmptyStatus;
+      const list = useSessions((state) => state);
+      const statuses = useSessionStatus((snapshot) => snapshot);
       const [now, setNow] = React.useState(() => Date.now());
 
       React.useEffect(() => {
@@ -391,7 +396,7 @@ window.__ModuleLoader__.load({
     /** The sidebar bell: native panel row owns the click; this is its glyph. */
     function ReminderIcon(props) {
       const size = typeof props.size === 'number' ? props.size : 18;
-      const useStatus = typeof props.useSessionStatus === 'function' ? props.useSessionStatus : EMPTY_HOOK;
+      const useStatus = typeof props.useSessionStatus === 'function' ? props.useSessionStatus : useEmptyStatus;
       const active = useStatus(countActive);
       const completed = useStatus(countCompleted);
       const badges = [];
@@ -486,6 +491,7 @@ window.__ModuleLoader__.load({
             ReminderIcon,
           ),
         );
+
       },
     };
   },
